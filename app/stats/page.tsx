@@ -1,32 +1,104 @@
 "use client";
-import { useState } from "react";
+
 import Image from "next/image";
 import { useSports } from "@/contexts/SportsContext";
 import { Card, CardContent } from "@/components/ui/card";
 // import { Button } from "@/components/ui/button";
 
-const sportStats: { [key: string]: { team: string; logo: string; players: { name: string; pts: number; ast: number; reb: number; img: string }[] }[] } = {
+const sportStats: {
+  [key: string]: {
+    team: string;
+    logo: string;
+    players: {
+      name: string;
+      pts: number;
+      ast: number;
+      reb: number;
+      img: string;
+    }[];
+  }[];
+} = {
   Basketball: [
     {
       team: "SIXERS",
       logo: "/Stats/sixers-logo.png",
       players: [
-        { name: "Joel Embiid", pts: 39, ast: 7, reb: 10, img: "/Stats/joel-embiid.png" },
-        { name: "Tyrese Maxey", pts: 25, ast: 8, reb: 2, img: "/Stats/tyrese-maxey.png" },
-        { name: "Paul George", pts: 33, ast: 15, reb: 6, img: "/Stats/paul-george1.png" },
-        { name: "Jared Mccain", pts: 20, ast: 5, reb: 3, img: "/Stats/jared-mccain.png" },
-        { name: "Kyle Lowry", pts: 15, ast: 10, reb: 5, img: "/Stats/kyle-lowry.png" },
+        {
+          name: "Joel Embiid",
+          pts: 39,
+          ast: 7,
+          reb: 10,
+          img: "/Stats/joel-embiid.png",
+        },
+        {
+          name: "Tyrese Maxey",
+          pts: 25,
+          ast: 8,
+          reb: 2,
+          img: "/Stats/tyrese-maxey.png",
+        },
+        {
+          name: "Paul George",
+          pts: 33,
+          ast: 15,
+          reb: 6,
+          img: "/Stats/paul-george1.png",
+        },
+        {
+          name: "Jared Mccain",
+          pts: 20,
+          ast: 5,
+          reb: 3,
+          img: "/Stats/jared-mccain.png",
+        },
+        {
+          name: "Kyle Lowry",
+          pts: 15,
+          ast: 10,
+          reb: 5,
+          img: "/Stats/kyle-lowry.png",
+        },
       ],
     },
     {
       team: "KNICKS",
       logo: "/Stats/knicks-logo.png",
       players: [
-        { name: "Julius Randle", pts: 28, ast: 3, reb: 6, img: "/Stats/julius-randle.png" },
-        { name: "Jalen Brunson", pts: 41, ast: 12, reb: 3, img: "/Stats/jalen-brunson.png" },
-        { name: "OG Anunoby", pts: 22, ast: 5, reb: 4, img: "/Stats/anunoby.png" },
-        { name: "Karl-Anthony Towns", pts: 18, ast: 7, reb: 2, img: "/Stats/kat.png" },
-        { name: "Mikal Bridges", pts: 10, ast: 2, reb: 8, img: "/Stats/bridges.png" },
+        {
+          name: "Julius Randle",
+          pts: 28,
+          ast: 3,
+          reb: 6,
+          img: "/Stats/julius-randle.png",
+        },
+        {
+          name: "Jalen Brunson",
+          pts: 41,
+          ast: 12,
+          reb: 3,
+          img: "/Stats/jalen-brunson.png",
+        },
+        {
+          name: "OG Anunoby",
+          pts: 22,
+          ast: 5,
+          reb: 4,
+          img: "/Stats/anunoby.png",
+        },
+        {
+          name: "Karl-Anthony Towns",
+          pts: 18,
+          ast: 7,
+          reb: 2,
+          img: "/Stats/kat.png",
+        },
+        {
+          name: "Mikal Bridges",
+          pts: 10,
+          ast: 2,
+          reb: 8,
+          img: "/Stats/bridges.png",
+        },
       ],
     },
   ],
@@ -36,7 +108,13 @@ const sportStats: { [key: string]: { team: string; logo: string; players: { name
       logo: "/patriots_logo.svg",
       players: [
         { name: "Tom Brady", pts: 3, ast: 0, reb: 0, img: "/brady.jpg" },
-        { name: "Rob Gronkowski", pts: 2, ast: 0, reb: 0, img: "/gronkowski.jpg" },
+        {
+          name: "Rob Gronkowski",
+          pts: 2,
+          ast: 0,
+          reb: 0,
+          img: "/gronkowski.jpg",
+        },
       ],
     },
     {
@@ -44,7 +122,13 @@ const sportStats: { [key: string]: { team: string; logo: string; players: { name
       logo: "/giants_logo.svg",
       players: [
         { name: "Eli Manning", pts: 2, ast: 1, reb: 0, img: "/manning.jpg" },
-        { name: "Odell Beckham Jr.", pts: 1, ast: 1, reb: 0, img: "/beckham.jpg" },
+        {
+          name: "Odell Beckham Jr.",
+          pts: 1,
+          ast: 1,
+          reb: 0,
+          img: "/beckham.jpg",
+        },
       ],
     },
   ],
@@ -72,9 +156,18 @@ export default function StatsPage() {
           selectedSports.map((sport) => (
             <Card key={sport} className="bg-blue-50">
               <CardContent className="p-0">
-                <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
+                <div
+                  style={{
+                    position: "relative",
+                    paddingBottom: "56.25%",
+                    height: 0,
+                  }}
+                >
                   <iframe
-                    src={sportVideos[sport] || "https://www.youtube.com/embed/DEFAULT_VIDEO_ID"}
+                    src={
+                      sportVideos[sport] ||
+                      "https://www.youtube.com/embed/DEFAULT_VIDEO_ID"
+                    }
                     title={`${sport} game`}
                     style={{
                       position: "absolute",
@@ -91,7 +184,13 @@ export default function StatsPage() {
                 <div className="p-4">
                   <div className="flex justify-between items-center mb-4">
                     {sportStats[sport]?.map((teamStats, index) => (
-                      <TeamScore key={teamStats.team} team={teamStats.team} score={index === 0 ? 101 : 104} logo={teamStats.logo} reverse={index !== 0} />
+                      <TeamScore
+                        key={teamStats.team}
+                        team={teamStats.team}
+                        score={index === 0 ? 101 : 104}
+                        logo={teamStats.logo}
+                        reverse={index !== 0}
+                      />
                     ))}
                   </div>
                 </div>
@@ -118,7 +217,9 @@ export default function StatsPage() {
             selectedSports.map((sport) =>
               sportStats[sport]?.map((teamStats) => (
                 <div key={teamStats.team} className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="text-xl font-bold mb-2 text-blue-700">{teamStats.team}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-blue-700">
+                    {teamStats.team}
+                  </h3>
                   {teamStats.players.map((player) => (
                     <PlayerStats key={player.name} player={player} />
                   ))}
@@ -151,12 +252,7 @@ function TeamScore({
     <div
       className={`flex items-center gap-2 ${reverse ? "flex-row-reverse" : ""}`}
     >
-      <Image
-        src={logo}
-        alt={`${team} logo`}
-        width={40}
-        height={40}
-      />
+      <Image src={logo} alt={`${team} logo`} width={40} height={40} />
       <div className={reverse ? "text-right" : ""}>
         <div className="font-bold text-blue-700">{team}</div>
         <div className="text-2xl font-bold text-blue-900">{score}</div>

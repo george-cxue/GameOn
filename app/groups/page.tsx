@@ -15,9 +15,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function GroupsPage() {
+function GroupsPage() {
   const [groups, setGroups] = useState(initialGroups);
   const [selectedGroup, setSelectedGroup] = useState(groups[0]);
   const [newMessage, setNewMessage] = useState("");
@@ -25,9 +26,8 @@ export default function GroupsPage() {
   const [isCreatingGroup, setIsCreatingGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState("");
   const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const community = searchParams.get('community');
+  const community = searchParams.get("community");
 
   useEffect(() => {
     if (community) {
@@ -84,8 +84,9 @@ export default function GroupsPage() {
           <button
             key={group.id}
             onClick={() => setSelectedGroup(group)}
-            className={`text-left p-3 flex items-center gap-3 ${selectedGroup.id === group.id ? "bg-blue-50" : "hover:bg-gray-100"
-              }`}
+            className={`text-left p-3 flex items-center gap-3 ${
+              selectedGroup.id === group.id ? "bg-blue-50" : "hover:bg-gray-100"
+            }`}
           >
             <Image
               src={group.image}
@@ -182,5 +183,13 @@ export default function GroupsPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function GroupsPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <GroupsPage />
+    </Suspense>
   );
 }
