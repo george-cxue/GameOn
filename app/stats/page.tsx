@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import { useSports } from "@/contexts/SportsContext";
 import { Card, CardContent } from "@/components/ui/card";
